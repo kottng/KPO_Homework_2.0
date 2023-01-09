@@ -15,7 +15,7 @@ public class Printer {
     }
 
     public static void printArrayContent(File file_input, File file_output,
-                                                                FileWriter writer) throws IOException {
+                                         FileWriter writer) throws IOException {
         String lineSeparator = System.getProperty("line.separator");
         FileReader fileReader = new FileReader(file_input);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -57,7 +57,7 @@ public class Printer {
 
     }
 
-    public static void printFileList(ArrayList<File> fileList, Map<String,File> mapFileList) {
+    public static void printFileList(ArrayList<File> fileList, Map<String, File> mapFileList) {
         for (File file : fileList) {
             System.out.println(file.getAbsolutePath());
             mapFileList.put(file.getName(), file);

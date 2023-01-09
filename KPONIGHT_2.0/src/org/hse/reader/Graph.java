@@ -2,23 +2,36 @@ package org.hse.reader;
 
 import java.util.ArrayList;
 import java.util.Map;
+
 public class Graph {
 
+    private final ArrayList<Node> nodes;
     private int Max_level = 1;
-    private ArrayList<Node> nodes;
 
     public Graph() {
         this.nodes = new ArrayList<>();
+    }
+
+    public static void findAllHeights(Graph graph, Map<String, Node> mapNodes, Map<String, Node> mapNodesReverse) {
+        for (var i : mapNodes.keySet()) {
+            if (mapNodes.get(i).getAdjacencyList().isEmpty()) {
+                graph.dfs(mapNodesReverse.get(i));
+            }
+        }
     }
 
     public void addNode(Node node) {
         this.nodes.add(node);
     }
 
-    public void addEdge(Node from, Node to) { from.addNeighbor(to); }
+    public void addEdge(Node from, Node to) {
+        from.addNeighbor(to);
+    }
+
     public int getMax_level() {
         return Max_level;
     }
+
     public boolean hasCycle() {
         for (Node node : nodes) {
             if (!node.getVisited() && hasCycle(node)) {
@@ -27,6 +40,7 @@ public class Graph {
         }
         return false;
     }
+
     public int dfs(Node node) {
         node.setVisited(true);
         int depth = 1;
@@ -41,6 +55,7 @@ public class Graph {
         }
         return depth;
     }
+
     public boolean hasCycle(Node sourceNode) {
         sourceNode.setBeingVisited(true);
 
@@ -59,18 +74,5 @@ public class Graph {
 
     public ArrayList<Node> getNodes() {
         return nodes;
-    }
-
-    public static void findAllHeights(Graph graph, Map<String,Node> mapNodes, Map<String,Node> mapNodesReverse) {
-        for (var i : mapNodes.keySet()) {
-            if (mapNodes.get(i).getAdjacencyList().isEmpty()) {
-                graph.dfs(mapNodesReverse.get(i));
-//                for (var r : mapNodesReverse.keySet()) {
-//                    System.out.print(mapNodesReverse.get(r).getLabel());
-//                    System.out.print(" ");
-//                    System.out.println(mapNodesReverse.get(r).getLevel());
-//                }
-            }
-        }
     }
 }

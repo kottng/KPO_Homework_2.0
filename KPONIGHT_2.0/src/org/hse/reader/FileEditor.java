@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class FileEditor {
-    public static void findRequires(ArrayList<File> arr, Graph graph, Map<String,Node> mapNode, Graph graphReverse,
-                                    Map<String,Node> mapNodeReverse) throws FileNotFoundException {
+    public static void findRequires(ArrayList<File> arr, Graph graph, Map<String, Node> mapNode, Graph graphReverse,
+                                    Map<String, Node> mapNodeReverse) throws FileNotFoundException {
         for (var i : arr) {
             Node new_elem_reverse = new Node(i.getName());
             Node new_elem = new Node(i.getName());
@@ -19,7 +19,7 @@ public class FileEditor {
         }
 
         // перебираем все файлы из списка пулла файлов
-        for(File file: arr) {
+        for (File file : arr) {
             // взяли и теперь сканируем его
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
@@ -31,11 +31,11 @@ public class FileEditor {
 
                 if (line.contains("require")) {
                     //если строчка содержит require, то файл может зависеть от других
-                    way = line.substring(9, line.length()-1);
+                    way = line.substring(9, line.length() - 1);
                     position_of_filename = way.lastIndexOf("/");
-                    if (position_of_filename != -1){
+                    if (position_of_filename != -1) {
                         //если ввод корректен
-                        name_of_dominante_file = way.substring(position_of_filename + 1, way.length());
+                        name_of_dominante_file = way.substring(position_of_filename + 1);
                         graph.addEdge(mapNode.get(file.getName()), mapNode.get(name_of_dominante_file));
                         graphReverse.addEdge(mapNodeReverse.get(name_of_dominante_file),
                                 mapNodeReverse.get(file.getName()));
@@ -48,7 +48,8 @@ public class FileEditor {
             }
         }
     }
-    public static void makeResultMassiv(Map<String,File> mapFileList, Map<String,Node> mapNodesReverse,
+
+    public static void makeResultMassiv(Map<String, File> mapFileList, Map<String, Node> mapNodesReverse,
                                         Map<Integer, ArrayList<File>> result_Massiv) {
         for (var k : mapNodesReverse.keySet()) {
             if (result_Massiv.containsKey(mapNodesReverse.get(k).getLevel())) {
@@ -59,9 +60,6 @@ public class FileEditor {
                 arr.add(mapFileList.get(mapNodesReverse.get(k).getLabel()));
                 result_Massiv.put(mapNodesReverse.get(k).getLevel(), arr);
             }
-//            System.out.print(mapNodesReverse.get(k).getLabel());
-//            System.out.print(" ");
-//            System.out.println(mapNodesReverse.get(k).getLevel());
         }
     }
 }

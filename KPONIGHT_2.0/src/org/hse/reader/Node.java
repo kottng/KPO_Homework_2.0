@@ -8,7 +8,7 @@ public class Node {
     private int level = 0;
     private boolean beingVisited;
     private boolean visited;
-    private ArrayList<Node> adjacencyList;
+    private final ArrayList<Node> adjacencyList;
 
     public Node(String label) {
         this.label = label;
@@ -20,8 +20,9 @@ public class Node {
     }
 
     public void setBeingVisited(boolean b) {
-        this.beingVisited=b;
+        this.beingVisited = b;
     }
+
     public boolean getbeingVisited() {
         return this.beingVisited;
     }
@@ -42,18 +43,19 @@ public class Node {
         this.visited = b;
     }
 
-    public void setLabel(String l) {
-        this.label = l;
-    }
     public String getLabel() {
         return this.label;
     }
 
-    public void setLevel(int l) {
-        this.level = l;
+    public void setLabel(String l) {
+        this.label = l;
     }
 
     public int getLevel() {
         return this.level;
+    }
+
+    public void setLevel(int l) {
+        this.level = l;
     }
 }
